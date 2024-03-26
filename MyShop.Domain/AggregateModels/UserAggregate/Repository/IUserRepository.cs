@@ -8,5 +8,7 @@ using System.Threading.Tasks;
 namespace MyShop.Domain.AggregateModels.UserAggregate.Repository
 {
     public interface IUserRepository : IRepository<User, long>
-    {}
+    {
+        Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
+    }
 }

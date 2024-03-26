@@ -1,39 +1,35 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MyShop.Domain;
-using MyShop.Domain.AggregateModels.UserAggregate.Models;
-using MyShop.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MediatR;
+using MyShop.Persistent.EntityConfigurations;
 
 namespace MyShop.Persistent
 {
     public class MyShopDbContext : DbContext, IUnitOfWork
     {
-        public MyShopDbContext(DbContextOptions<MyShopDbContext> options) : base(options)
-        {}
+        private readonly IMediator _mediator;
+
+        public MyShopDbContext(
+            DbContextOptions<MyShopDbContext> options,
+            IMediator mediator
+        ) : base(options)
+        {
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<User>().ToTable("Users");
-
-            modelBuilder.Entity<Role>().ToTable("Roles");
-
-            modelBuilder.Entity<IdentityUserClaim<long>>().ToTable("UserClaims");
-
-            modelBuilder.Entity<IdentityUserLogin<long>>().ToTable("UserLogins");
-
-            modelBuilder.Entity<IdentityUserToken<long>>().ToTable("UserTokens");
-
-            modelBuilder.Entity<IdentityRoleClaim<long>>().ToTable("RoleClaims");
-
-            modelBuilder.Entity<IdentityUserRole<long>>().ToTable("UserRoles");
+            modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
         }
         public async Task CommitAsync()
         {
+            await _mediator.DispatchDomainEventsAsync(this);
             await base.SaveChangesAsync();
         }
     }

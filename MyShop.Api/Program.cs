@@ -1,3 +1,5 @@
+using MyShop.Api.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +7,11 @@ builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
 });
+
+builder.Services.AddConfigureJWT(builder.Configuration);
+builder.Services.AddPersistence(builder.Configuration);
+builder.Services.AddServiceIdentity();
+
 
 builder.Services.AddCors(opts =>
     opts.AddPolicy("AllowAll",
