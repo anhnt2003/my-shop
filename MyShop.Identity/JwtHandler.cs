@@ -19,7 +19,7 @@ public class JwtHandler
         _privateKey = privateKey;
     }
 
-    public string GenerateToken(User user)
+    public string GenerateToken(MyShopUser user)
     {
         var issuer = _issuer;
         var audience = _audience;

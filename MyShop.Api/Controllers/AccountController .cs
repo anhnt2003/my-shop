@@ -14,12 +14,26 @@ namespace MyShop.Api.Controllers
             _authService = authService;
         }
 
-        [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginReq req)
+        [HttpPost("login-google")]
+        public async Task<IActionResult> ExternalLoginAsync(ExternalLoginDto req)
         {
             try
             {
-                var result = await _authService.LoginAsync(new LoginDto
+                var result = await _authService.ExternalLoginAsync(req);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPost("sign-in")]
+        public async Task<IActionResult> SignInAsync(LoginReq req)
+        {
+            try
+            {
+                var result = await _authService.SignInAsync(new LoginDto
                 {
                     FullName = req.FullName,
                     UserName = req.UserName,
@@ -36,18 +50,16 @@ namespace MyShop.Api.Controllers
             }
         }
 
-        [HttpPost("login-google")]
-        public async Task<IActionResult> LoginGoogleAsync(ExternalLoginDto req)
+        [HttpPost("sign-up")]
+        public async Task<IActionResult> SignUpAsync()
         {
-            try
-            {
-                var result = await _authService.ExternalLoginAsync(req);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
+            throw new NotImplementedException();
+        }
+
+        [HttpPost("sign-out")]
+        public async Task<IActionResult> SignOutAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

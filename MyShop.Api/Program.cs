@@ -10,7 +10,7 @@ builder.Services.AddMediatR(cfg =>
 
 builder.Services.AddConfigureJWT(builder.Configuration);
 builder.Services.AddPersistence(builder.Configuration);
-builder.Services.AddServiceIdentity();
+builder.Services.AddConfigureIdentity(builder.Configuration);
 
 
 builder.Services.AddCors(opts =>
@@ -22,14 +22,16 @@ builder.Services.AddCors(opts =>
     )
 );
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
+app.UseCors("AllowAll");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

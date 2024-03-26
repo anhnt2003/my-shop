@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MyShop.Identity;
 using MyShop.Identity.Services.Impls;
@@ -11,8 +12,23 @@ namespace MyShop.Api.Extensions
 {
     public static class AddIdentityExtension
     {
-        public static void AddServiceIdentity(this IServiceCollection services)
+        public static void AddConfigureIdentity(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddDbContext<MyShopAuthDbContext>(opts =>
+            {
+                opts.UseSqlServer(configuration.GetConnectionString("MyShopDb"),
+                    b => b.MigrationsAssembly("MyShop.Api"));
+            });
+
+            services.AddIdentity<MyShopUser, IdentityRole<long>>(o =>
+            {
+                o.User.RequireUniqueEmail = false;
+                o.ClaimsIdentity.UserIdClaimType = "Id";
+            })
+            .AddRoles<IdentityRole<long>>()
+            .AddEntityFrameworkStores<MyShopAuthDbContext>()
+            .AddDefaultTokenProviders();
+
             services.AddScoped<IAuthService, AuthService>();
         }
         public static void AddConfigureJWT(this IServiceCollection services, IConfiguration configuration)

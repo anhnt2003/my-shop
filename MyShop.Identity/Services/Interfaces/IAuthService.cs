@@ -4,7 +4,11 @@ namespace MyShop.Identity.Services.Interfaces;
 
 public interface IAuthService
 {
-    Task<UserLoginDto> LoginAsync(LoginDto loginDto);
+    Task<UserLoginDto> SignInAsync(LoginDto loginDto);
+
+    Task SignUpAsync();
+
+    Task SignOutAsync();
     
     Task<UserLoginDto> ExternalLoginAsync(ExternalLoginDto externalLoginDto);
 }

@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MyShop.Api.Infrastructure.Migrations
+namespace MyShop.Api.Infrastructure.MyShopDb.Migrations
 {
     /// <inheritdoc />
-    public partial class DbInitial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

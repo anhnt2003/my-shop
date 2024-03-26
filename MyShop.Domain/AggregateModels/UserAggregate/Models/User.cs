@@ -22,7 +22,7 @@ namespace MyShop.Domain.AggregateModels.UserAggregate.Models
         
         public bool TwoFactorAuthEnable { get; private set; }
         
-        public byte[]? TwoFactorSecretKey { get; private set; }
+        public string? TwoFactorSecretKey { get; private set; }
         
         public DateTime CreatedDate { get; private set; }
         
@@ -36,7 +36,7 @@ namespace MyShop.Domain.AggregateModels.UserAggregate.Models
             string? phoneNumber, 
             string avatar,
             bool twoFactorAuthEnable,
-            byte[]? twoFactorSecretKey)
+            string? twoFactorSecretKey)
         {
             UserName = userName;
             PasswordHasded = passwordHasded;

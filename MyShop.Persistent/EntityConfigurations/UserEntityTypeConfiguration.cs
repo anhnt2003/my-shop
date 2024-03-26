@@ -32,7 +32,7 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
         builder.Property(p => p.PhoneNumber)
             .HasColumnName(nameof(User.PhoneNumber))
             .HasColumnType("VARCHAR(255)")
-            .IsRequired();
+            .IsRequired(false);
 
         builder.Property(p => p.Email)
             .HasColumnName(nameof(User.Email))
