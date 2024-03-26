@@ -26,7 +26,7 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(p => p.FullName)
             .HasColumnName(nameof(User.FullName))
-            .HasColumnType("VARCHAR(255)")
+            .HasColumnType("NVARCHAR(255)")
             .IsRequired();
 
         builder.Property(p => p.PhoneNumber)

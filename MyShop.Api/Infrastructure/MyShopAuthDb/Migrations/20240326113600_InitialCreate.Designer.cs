@@ -12,7 +12,7 @@ using MyShop.Identity;
 namespace MyShop.Api.Infrastructure.MyShopAuthDb.Migrations
 {
     [DbContext(typeof(MyShopAuthDbContext))]
-    [Migration("20240326094027_InitialCreate")]
+    [Migration("20240326113600_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

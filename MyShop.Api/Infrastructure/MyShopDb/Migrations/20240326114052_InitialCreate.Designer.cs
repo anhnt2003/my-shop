@@ -12,7 +12,7 @@ using MyShop.Persistent;
 namespace MyShop.Api.Infrastructure.MyShopDb.Migrations
 {
     [DbContext(typeof(MyShopDbContext))]
-    [Migration("20240326094203_InitialCreate")]
+    [Migration("20240326114052_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -50,7 +50,7 @@ namespace MyShop.Api.Infrastructure.MyShopDb.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(255)")
+                        .HasColumnType("NVARCHAR(255)")
                         .HasColumnName("FullName");
 
                     b.Property<string>("PasswordHasded")
@@ -58,7 +58,6 @@ namespace MyShop.Api.Infrastructure.MyShopDb.Migrations
                         .HasColumnName("PasswordHasded");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("VARCHAR(255)")
                         .HasColumnName("PhoneNumber");
 

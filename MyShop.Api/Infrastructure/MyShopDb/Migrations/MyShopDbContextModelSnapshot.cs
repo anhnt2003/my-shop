@@ -47,7 +47,7 @@ namespace MyShop.Api.Infrastructure.MyShopDb.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(255)")
+                        .HasColumnType("NVARCHAR(255)")
                         .HasColumnName("FullName");
 
                     b.Property<string>("PasswordHasded")
@@ -55,7 +55,6 @@ namespace MyShop.Api.Infrastructure.MyShopDb.Migrations
                         .HasColumnName("PasswordHasded");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("VARCHAR(255)")
                         .HasColumnName("PhoneNumber");
 
